@@ -4,8 +4,11 @@ Basic exercises with D3js
 * Exercise 1: Using the browser console start playing with D3JS
 * Exercise 2: Create a kind of Mickey Mouse head in SVG
 * Exercise 3: Create random circles from data
+* Exercise 4: Add transition to the circles
 
 ## Notes
+
+### Basic Usage
 
 The main cycle using D3js is always
 
@@ -23,3 +26,7 @@ Example: Generate 5 circles
         .append("circle")   // fill the placeholders with circles: create five circles
         .text(d => d)
 ```
+
+### Transitions
+
+`transtion` -> `duration`
