@@ -6,6 +6,7 @@ Basic exercises with D3js
 * Exercise 3: Create random circles from data
 * Exercise 4: Add transition to the circles
 * Exercise 5: Playing with the scales
+* Exercise 6: Scatterplot
 
 ## Notes
 
@@ -29,6 +30,14 @@ Example: Generate 5 circles
         .enter()            // create placeholders to hold the data: five in this case
         .append("circle")   // fill the placeholders with circles: create five circles
         .text(d => d)
+```
+
+Example: Updating the 5 circles 
+```
+    let newRadius = [10, 20, 30, 40, 50];
+
+    svg.selectAll("circle")
+    .data(radius);
 ```
 
 ### Transitions

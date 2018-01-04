@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Exercise 6</title>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<style>
+    
+    /* Basic Styles for representation */
+
+
+</style>
+<h1>Exercise 6</h1>
+<h2>Instructions</h2>
+<p>Axes: create some random points, then paint them grouped and paint the X axis and the Y axis.</p>
+<p>Finally create a button which refreshes the points and the axes when clicked.</p>
+<div>
+    <button>Refresh</button>
+</div>
+<script>
+    
+    const generateRandomNumbers = (num, max) => {
+        const dataset = [];
+        for(let i = 0 ; i < maxPoints ; i++){
+            let x = Math.floor(Math.random() * maxRange);   // Generates a random number from 0 to maxRange
+            let y = Math.floor(Math.random() * maxRange);
+            dataset.push({ x : x, y : y});
+        }
+        return dataset;
+    };
+
+    const generateScale = (domain, range)  => {
+        return d3.scaleLinear()
+                    .domain(domain)
+                    .range(range);
+    };
+
+    // SVG constraints
+    const width  = 500;
+    const height = 500;
+
+    const padding = 25;
+ 
+    // Generate random points
+    const maxRange  = Math.random() * 1000;
+    const maxPoints = 200;
+
+    let dataset = generateRandomNumbers(maxPoints, maxRange);    
+
+    // Create scales
+    let xScale = generateScale([0, d3.max(dataset, d => d.x)], [padding, width - padding]);
+    let yScale = generateScale([0, d3.max(dataset, d => d.y)], [padding, height - padding]);
+
+    // Define the axes
+    let xAxis = d3.axisBottom(xScale).ticks(5);
+    let yAxis = d3.axisLeft(yScale).ticks(5);
+
+    let svg = d3.select("body")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+    // Create Circles
+    svg.append("g")                 // Appends a group with id: circles
+        .attr("id", "circles")
+        .selectAll("circle")
+        .data(dataset)
+        .enter()
+        .append("circle")
+        .attr("cx", d => xScale(d.x))       // Do not forget to apply the xScale and yScale
+        .attr("cy", d => yScale(d.y))
+        .attr("r", d => 2);
+
+    // Append axes
+    svg.append("g")
+        .attr("id", "xAxis")                                                // Appends a group with the axis
+        .attr("transform", "translate(0," + (height - padding + 5) + ")")   // Places the axis accordingly
+        .call(xAxis);
+
+    svg.append("g")     
+        .attr("id", "yAxis")                                                // Appends a group with the axis
+        .attr("transform", "translate(" + (padding - 5) + ",0)")            // Places the axis accordingly
+        .call(yAxis);
+
+    // Add Button behaviour
+    d3.select("button")
+        .on("click", () => {
+            // Generate random dataset
+            let newMaxRange = Math.random() * 1000;
+            let dataset = generateRandomNumbers(maxPoints, newMaxRange);
+
+            // Update scales
+            xScale.domain([0, d3.max(dataset, d => d.x)]);
+            yScale.domain([0, d3.max(dataset, d => d.y)]);
+
+            //Update all circles
+            svg.selectAll("circle")             // No enter-append to update
+               .data(dataset)
+               .transition()
+               .duration(1000)
+               .attr("cx", d => xScale(d.x))
+               .attr("cy", d => xScale(d.y));
+
+            //Update X axis
+            svg.select("#xAxis")
+                .transition()
+                .duration(1000)
+                .call(xAxis);
+            
+            //Update Y axis
+            svg.select("#yAxis")
+                .transition()
+                .duration(1000)
+                .call(yAxis);
+
+    });
+    
+</script>
+<p>
+    <a href="../">Back</a>
+</p>
