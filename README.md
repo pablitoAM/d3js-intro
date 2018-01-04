@@ -5,6 +5,7 @@ Basic exercises with D3js
 * Exercise 2: Create a kind of Mickey Mouse head in SVG
 * Exercise 3: Create random circles from data
 * Exercise 4: Add transition to the circles
+* Exercise 5: Playing with the scales
 
 ## Notes
 
@@ -47,9 +48,12 @@ Example: Transition a circle
         .attr("r", 50)
         .attr("fill", "black")
         .transition()               // definition of transition
-        .duration(2000)             // it will length 2000 ms
+        .delay(100)                 // It will start after 100 ms       
+        .duration(2000)             // It will length 2000 ms
         .attr("cx", 200)            // final attributes
         .attr("cy", 0)
         .attr("r", 25)
         .attr("fill", "green");
 ```
+
+### Scales
