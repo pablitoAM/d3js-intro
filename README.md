@@ -41,14 +41,14 @@ Example: Transition a circle
         .attr("width", 400)
         .attr("height", 400);
 
-    svg.append("circle")
-        .attr("cx", 100)
+    svg.append("circle")            // creating a circle
+        .attr("cx", 100)            // initial attributes
         .attr("cy", 100)
         .attr("r", 50)
         .attr("fill", "black")
-        .transition()
-        .duration(2000)
-        .attr("cx", 200)
+        .transition()               // definition of transition
+        .duration(2000)             // it will length 2000 ms
+        .attr("cx", 200)            // final attributes
         .attr("cy", 0)
         .attr("r", 25)
         .attr("fill", "green");
