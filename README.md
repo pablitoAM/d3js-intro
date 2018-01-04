@@ -16,7 +16,10 @@ The main cycle using D3js is always
 
 Example: Generate 5 circles
 ```
-    const svg = d3.select("svg");
+    let svg = d3.select("body")
+        .append("svg")
+        .attr("width", 400)
+        .attr("height", 400);
 
     let radius = [3, 6, 9, 12, 15];
 
@@ -30,3 +33,23 @@ Example: Generate 5 circles
 ### Transitions
 
 `transtion` -> `duration`
+
+Example: Transition a circle
+```
+    let svg = d3.select("body")
+        .append("svg")
+        .attr("width", 400)
+        .attr("height", 400);
+
+    svg.append("circle")
+        .attr("cx", 100)
+        .attr("cy", 100)
+        .attr("r", 50)
+        .attr("fill", "black")
+        .transition()
+        .duration(2000)
+        .attr("cx", 200)
+        .attr("cy", 0)
+        .attr("r", 25)
+        .attr("fill", "green");
+```
